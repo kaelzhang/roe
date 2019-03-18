@@ -26,7 +26,15 @@ $ npm i roe
 ## Usage
 
 ```js
-import roe from 'roe'
+const Application = require('roe')
+
+const app = new Application({
+  baseDir: '/path/to'
+})
+
+app.ready(() => {
+  app.listen(8888)
+})
 ```
 
 ## License
