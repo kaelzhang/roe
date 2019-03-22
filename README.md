@@ -25,6 +25,12 @@ $ npm i roe
 
 ## Usage
 
+The usage of `roe` is much the same as [`egg`](https://eggjs.org), and you can dive into the reference of egg directly.
+
+In addition, `roe` constructor accepts `options.config` as the server configuration, instead of by hardcoding all configurations of different environments in the local project which is an ANTI-PATTERN for ops.
+
+A better practice is to use Kubernetes configmaps and secrets to populate them into `process.env`s.
+
 ```js
 const Application = require('roe')
 
