@@ -15,7 +15,9 @@
 
 # roe
 
-<!-- description -->
+A single egg instance.
+
+Egg web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
 
 ## Install
 
@@ -29,12 +31,30 @@ $ npm i roe
 const Application = require('roe')
 
 const app = new Application({
-  baseDir: '/path/to'
+  baseDir: '/path/to',
+
+  // We can define roe configurations directly
+  //   by passing options.config, which is a good practise
+  //   for k8s based environment variables management
+  config: {
+    keys: process.env.SECRET_KEY,
+    middleware: [
+      'body-parser'
+    ]
+  }
 })
 
 app.ready(() => {
   app.listen(8888)
 })
+```
+
+Or starting with vanilla nodejs http server
+
+```js
+require('http')
+.createServer(app.callback())
+.listen(8888)
 ```
 
 ## License
