@@ -63,6 +63,10 @@ require('http')
 
 ## new Roe(options)
 
+- **options** `Object`
+  - **config** `Object` similar as `config/config.default.js` of egg
+  - **extends** `Object` which will be `Object.assign()` into the instance before loaders are invoked.
+
 Creates a roe instance.
 
 ## License
