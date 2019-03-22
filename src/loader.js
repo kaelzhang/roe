@@ -14,7 +14,7 @@ module.exports = class AppWorkerLoader extends EggLoader {
     super.loadConfig()
 
 
-    if (config) {
+    if (this._customConfig) {
       extend(true, this.config, this._customConfig)
     }
   }

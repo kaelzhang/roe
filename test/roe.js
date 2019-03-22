@@ -1,7 +1,10 @@
-const test = require('ava')
-const log = require('util').debuglog('roe')
-const roe = require('../src')
+const {
+  runner
+} = require('./fixtures/runner')
 
-test('description', t => {
-  t.is(true, true)
-})
+const CASES = [
+  // [method, pathname, code, body]
+  ['get', '/hello', 200, 'hello']
+]
+
+runner(CASES, 'app', {})
