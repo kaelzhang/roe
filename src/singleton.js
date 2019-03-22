@@ -1,11 +1,7 @@
-const assert = require('assert')
+const {error} = require('./error')
 
-class Singleton {
-  constructor (options = {}) {
-    assert(options.name, '[egg:singleton] Singleton#constructor options.name is required')
-    assert(options.app, '[egg:singleton] Singleton#constructor options.app is required')
-    assert(options.create, '[egg:singleton] Singleton#constructor options.create is required')
-    assert(!options.app[options.name], `${options.name} is already exists in app`)
+module.exports = class Singleton {
+  constructor (options) {
     this.clients = new Map()
     this.app = options.app
     this.name = options.name
@@ -16,14 +12,15 @@ class Singleton {
 
   init () {
     const {options} = this
-    assert(!(options.client && options.clients),
-      `egg:singleton ${this.name} can not set options.client and options.clients both`)
+    if (options.client && options.clients) {
+      throw error('INVALID_SINGLETON_CLIENT', this.name)
+    }
 
     // alias app[name] as client, but still support createInstance method
     if (options.client) {
       const client = this.createInstance(options.client)
       this.app[this.name] = client
-      assert(!client.createInstance, 'singleton instance should not have createInstance method')
+
       client.createInstance = this.createInstance.bind(this)
       return
     }

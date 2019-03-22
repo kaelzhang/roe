@@ -4,6 +4,8 @@ const {
 } = require('egg-core')
 
 const RoeLoader = require('./loader')
+const Singleton = require('./singleton')
+const {error} = require('./error')
 
 const EGG_LOADER = Symbol.for('egg#loader')
 const EGG_PATH = Symbol.for('egg#eggPath')
@@ -13,11 +15,25 @@ const ROE_LOADER = Symbol.for('roe#loader')
 class FakeLoader {
 }
 
+const NOOP = () => {}
+const fakeCoreLogger = {
+  debug: NOOP,
+  info: NOOP,
+  warn: NOOP,
+  error: NOOP
+}
+
 class Roe extends EggCore {
-  constructor ({
-    config,
-    ...options
-  } = {}) {
+  constructor (roeOptions) {
+    if (Object(roeOptions) !== roeOptions) {
+      throw error('INVALID_OPTIONS')
+    }
+
+    const {
+      config,
+      ...options
+    } = roeOptions
+
     options.type = 'application'
     super(options)
 
@@ -38,6 +54,10 @@ class Roe extends EggCore {
 
     this.loader.loadConfig()
     this.loader.load()
+  }
+
+  get coreLogger () {
+    return fakeCoreLogger
   }
 
   get [EGG_LOADER] () {

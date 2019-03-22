@@ -17,7 +17,7 @@
 
 A single egg instance.
 
-Egg web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
+[Egg](https://eggjs.org/) web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
 
 ## Install
 

@@ -8,18 +8,30 @@ const {
   Roe
 } = require('../..')
 
-const runner = (cases, baseDir, config) => {
-  const app = new Roe({
-    baseDir: path.join(__dirname, 'app', baseDir),
-    config
-  })
+const runner = (cases, baseDir, {
+  plugins,
+  ...config
+} = {}, extra) => {
+  let app
 
   test.before(async () => {
+    app = new Roe({
+      baseDir: path.join(__dirname, baseDir),
+      plugins,
+      config
+    })
+
     await app.ready()
   })
 
   cases.forEach(([method, pathname, code, body]) => {
-    test(`${method} ${pathname}`, async t => {
+    test('plugins', t => {
+      t.true(!!app.redis.get('a'))
+      t.true(!!app.redis.get('b'))
+      t.true(!!app.bog)
+    })
+
+    test.cb(`${method} ${pathname}`, t => {
       const r = request(app.callback())[method](pathname)
       .expect(code)
 
@@ -27,10 +39,23 @@ const runner = (cases, baseDir, config) => {
         ? r
         : r.expect(body)
 
-      await rr
+      rr.end(err => {
+        if (err) {
+          t.fail(err)
+          t.end()
+          return
+        }
 
-      t.pass()
+        t.pass()
+        t.end()
+      })
     })
+  })
+
+  test.after(t => {
+    if (extra) {
+      extra(t)
+    }
   })
 }
 
