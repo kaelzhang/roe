@@ -10,6 +10,9 @@ const CASES = [
 const logs = []
 
 runner(CASES, 'normal', {
+  extends: {
+    a: 1
+  },
   plugins: {
     bog: {
       enable: true,

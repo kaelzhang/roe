@@ -10,6 +10,7 @@ const {
 
 const runner = (cases, baseDir, {
   plugins,
+  extends: exts,
   ...config
 } = {}, extra) => {
   let app
@@ -18,6 +19,7 @@ const runner = (cases, baseDir, {
     app = new Roe({
       baseDir: path.join(__dirname, baseDir),
       plugins,
+      extends: exts,
       config
     })
 
@@ -25,10 +27,11 @@ const runner = (cases, baseDir, {
   })
 
   cases.forEach(([method, pathname, code, body]) => {
-    test('plugins', t => {
+    test('extends', t => {
       t.true(!!app.redis.get('a'))
       t.true(!!app.redis.get('b'))
       t.true(!!app.bog)
+      t.is(app.a, 1)
     })
 
     test.cb(`${method} ${pathname}`, t => {

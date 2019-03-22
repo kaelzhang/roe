@@ -32,9 +32,9 @@ In addition, `roe` constructor accepts `options.config` as the server configurat
 A better practice is to use Kubernetes configmaps and secrets to populate them into `process.env`s.
 
 ```js
-const Application = require('roe')
+const {Roe} = require('roe')
 
-const app = new Application({
+const app = new Roe({
   baseDir: '/path/to',
 
   // We can define roe configurations directly
@@ -60,6 +60,10 @@ require('http')
 .createServer(app.callback())
 .listen(8888)
 ```
+
+## new Roe(options)
+
+Creates a roe instance.
 
 ## License
 

@@ -31,11 +31,16 @@ class Roe extends EggCore {
 
     const {
       config,
+      extends: exts,
       ...options
     } = roeOptions
 
     options.type = 'application'
     super(options)
+
+    if (exts) {
+      Object.assign(this, exts)
+    }
 
     const Loader = this[ROE_LOADER]
     if (!Loader) {
