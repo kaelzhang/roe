@@ -15,9 +15,7 @@
 
 # roe
 
-A single egg instance.
-
-[Egg](https://eggjs.org/) web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
+A single and simplified instance of [Egg](https://eggjs.org/) web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
 
 ## Install
 
