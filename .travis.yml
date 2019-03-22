@@ -8,3 +8,4 @@ services:
 before_install:
   - cd test/fixtures/normal
   - npm i
+  - cd -
