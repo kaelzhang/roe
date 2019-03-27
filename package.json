@@ -1,7 +1,7 @@
 {
   "name": "roe",
-  "version": "1.1.0",
-  "description": "roe",
+  "version": "1.1.1",
+  "description": "A single and simplified instance of Egg web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes",
   "main": "src/index.js",
   "scripts": {
     "test": "nyc ava --timeout=10s --verbose test/*.test.js",
@@ -17,7 +17,15 @@
     "url": "git://github.com/kaelzhang/roe.git"
   },
   "keywords": [
-    "roe"
+    "roe",
+    "egg",
+    "web",
+    "app",
+    "application",
+    "http",
+    "framework",
+    "middleware",
+    "koa"
   ],
   "engines": {
     "node": ">= 6"

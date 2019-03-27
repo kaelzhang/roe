@@ -3,8 +3,9 @@ const {
 } = require('./fixtures/runner')
 
 const CASES = [
-  // [method, pathname, code, body]
-  ['get', '/hello', 200, 'hello']
+  ['get', '/hello', 200, 'hello', {
+    'x-header': 'bar'
+  }]
 ]
 
 const logs = []
@@ -39,6 +40,12 @@ runner(CASES, 'normal', {
       }
     }
   },
+
+  middleware: [
+    'foo'
+  ],
+
+  foo: {},
 
   snowflake: {
 

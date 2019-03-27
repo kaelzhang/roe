@@ -26,7 +26,7 @@ const runner = (cases, baseDir, {
     await app.ready()
   })
 
-  cases.forEach(([method, pathname, code, body]) => {
+  cases.forEach(([method, pathname, code, body, expectHeaders]) => {
     test('extends', t => {
       t.true(!!app.redis.get('a'))
       t.true(!!app.redis.get('b'))
@@ -34,7 +34,7 @@ const runner = (cases, baseDir, {
       t.is(app.a, 1)
     })
 
-    test.cb(`${method} ${pathname}`, t => {
+    test(`${method} ${pathname}`, async t => {
       const r = request(app.callback())[method](pathname)
       .expect(code)
 
@@ -42,16 +42,17 @@ const runner = (cases, baseDir, {
         ? r
         : r.expect(body)
 
-      rr.end(err => {
-        if (err) {
-          t.fail(err)
-          t.end()
-          return
-        }
+      const {
+        headers
+      } = await rr
 
-        t.pass()
-        t.end()
-      })
+      if (expectHeaders) {
+        Object.keys(expectHeaders).forEach(key => {
+          t.is(headers[key], expectHeaders[key])
+        })
+      }
+
+      t.pass()
     })
   })
 

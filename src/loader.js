@@ -13,8 +13,15 @@ module.exports = class AppWorkerLoader extends EggLoader {
     this.loadPlugin()
     super.loadConfig()
 
-    if (this._customConfig) {
-      extend(true, this.config, this._customConfig)
+    if (!this._customConfig) {
+      return
+    }
+
+    extend(true, this.config, this._customConfig)
+
+    const {middleware} = this._customConfig
+    if (Array.isArray(middleware)) {
+      this.config.appMiddleware.push(...middleware)
     }
   }
 
