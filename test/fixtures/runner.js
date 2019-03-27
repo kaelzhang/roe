@@ -27,7 +27,7 @@ const runner = (cases, baseDir, {
   })
 
   cases.forEach(([method, pathname, code, body, expectHeaders]) => {
-    test('extends', t => {
+    test(`extends: ${method} ${pathname}`, t => {
       t.true(!!app.redis.get('a'))
       t.true(!!app.redis.get('b'))
       t.true(!!app.bog)

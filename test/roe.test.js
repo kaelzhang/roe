@@ -5,6 +5,9 @@ const {
 const CASES = [
   ['get', '/hello', 200, 'hello', {
     'x-header': 'bar'
+  }],
+  ['get', '/hello2', 200, 'hello', {
+    'x-header': 'bar'
   }]
 ]
 
