@@ -8,6 +8,8 @@ const {
   Roe
 } = require('../..')
 
+const fixture = (...args) => path.join(__dirname, ...args)
+
 const runner = (cases, baseDir, {
   plugins,
   extends: exts,
@@ -64,5 +66,6 @@ const runner = (cases, baseDir, {
 }
 
 module.exports = {
-  runner
+  runner,
+  fixture
 }
