@@ -5,7 +5,8 @@ const {format} = require('util')
 const {
   ROE_LOADER_NOT_FOUND,
   INVALID_OPTIONS,
-  INVALID_SINGLETON_CLIENT
+  INVALID_SINGLETON_CLIENT,
+  INVALID_OPTION_CONFIG
 } = require('../src/error')
 
 const {
@@ -48,4 +49,17 @@ test('invalid plugin client', t => {
       }
     }
   }), format(INVALID_SINGLETON_CLIENT, 'bog'))
+})
+
+test('invalid options.config', t => {
+  t.throws(() => new Roe({
+    baseDir: DIR_NORMAL,
+    plugins: {
+      bog: {
+        enable: true,
+        package: 'egg-bog'
+      }
+    },
+    config: 'foo'
+  }), format(INVALID_OPTION_CONFIG, 'foo'))
 })

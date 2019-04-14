@@ -1,7 +1,5 @@
-const {
-  EggCore,
-  BaseContextClass
-} = require('egg-core')
+const {EggCore, BaseContextClass} = require('egg-core')
+const {isFunction, isObject} = require('core-util-is')
 
 const RoeLoader = require('./loader')
 const Singleton = require('./singleton')
@@ -45,6 +43,10 @@ class Roe extends EggCore {
     const Loader = this[ROE_LOADER]
     if (!Loader) {
       throw error('ROE_LOADER_NOT_FOUND')
+    }
+
+    if (config && !isFunction(config) && !isObject(config)) {
+      throw error('INVALID_OPTION_CONFIG', config)
     }
 
     this.loader = new Loader({

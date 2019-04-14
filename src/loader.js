@@ -1,12 +1,13 @@
-const {
-  EggLoader
-} = require('egg-core')
+const {EggLoader} = require('egg-core')
 const extend = require('extend2')
+const {isFunction} = require('core-util-is')
 
 module.exports = class AppWorkerLoader extends EggLoader {
   constructor (options) {
     super(options)
-    this._customConfig = options.config
+    this._customConfig = isFunction(options.config)
+      ? options.config.call(null, this.getAppInfo())
+      : options.config
   }
 
   loadConfig () {

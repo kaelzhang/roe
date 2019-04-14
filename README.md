@@ -64,7 +64,7 @@ require('http')
 ## new Roe(options)
 
 - **options** `Object`
-  - **config** `Object` similar as `config/config.default.js` of egg
+  - **config** `Object | Function(appInfo)` similar as `config/config.default.js` of egg
   - **extends** `Object` which will be `Object.assign()` into the instance before loaders are invoked.
   - **...others** `Object` other options of [`EggCore`](https://npmjs.org/package/egg-core)
 

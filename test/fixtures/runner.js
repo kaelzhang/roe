@@ -4,20 +4,114 @@ const path = require('path')
 /* eslint-disable import/no-extraneous-dependencies */
 const request = require('supertest')
 
-const {
-  Roe
-} = require('../..')
+const {Roe} = require('../..')
 
 const fixture = (...args) => path.join(__dirname, ...args)
 
-const runner = (cases, baseDir, {
-  plugins,
-  extends: exts,
-  ...config
-} = {}, extra) => {
-  let app
+const CASES = [
+  ['get', '/hello', 200, 'hello', {
+    'x-header': 'bar'
+  }],
+  ['get', '/hello2', 200, 'hello', {
+    'x-header': 'bar'
+  }]
+]
 
-  test.before(async () => {
+const GET_CONFIG = t => {
+  const logs = []
+
+  const config = {
+    bog: {
+      client: {
+        on: {
+          error (time, level, log) {
+            logs.push(log)
+          }
+        }
+      }
+    },
+
+    middleware: [
+      'foo'
+    ],
+
+    foo: {},
+
+    snowflake: {
+
+    },
+
+    redis: {
+      clients: {
+        a: {
+          host: '127.0.0.1',
+          port: 6379,
+          password: '',
+          db: 0
+        },
+        b: {
+          host: '127.0.0.1',
+          port: 6379,
+          password: '',
+          db: 1
+        }
+      }
+    }
+  }
+
+  return {
+    extends: {
+      a: 1
+    },
+
+    plugins: {
+      bog: {
+        enable: true,
+        package: 'egg-bog'
+      },
+
+      redis: {
+        enable: true,
+        package: 'egg-redis'
+      },
+
+      snowflake: {
+        enable: true,
+        package: 'egg-snowflake'
+      }
+    },
+
+    extra: logs,
+
+    config: process.env.FUNC_CONFIG
+      ? appInfo => {
+        t.is(appInfo.name, 'app', 'appInfo.name')
+        return config
+      }
+      : config
+  }
+}
+
+const AFTER = (t, logs) => {
+  t.deepEqual(logs, [
+    'bog info'
+  ])
+}
+
+const runner = (baseDir, cases = CASES, getConfig = GET_CONFIG, after = AFTER) => {
+  let app
+  let extra
+
+  test.before(async t => {
+    const {
+      plugins,
+      extends: exts,
+      config,
+      extra: e
+    } = getConfig(t)
+
+    extra = e
+
     app = new Roe({
       baseDir: path.join(__dirname, baseDir),
       plugins,
@@ -59,8 +153,8 @@ const runner = (cases, baseDir, {
   })
 
   test.after(t => {
-    if (extra) {
-      extra(t)
+    if (after) {
+      after(t, extra)
     }
   })
 }
