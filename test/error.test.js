@@ -36,13 +36,13 @@ test('constructor options', t => {
 test('invalid plugin client', t => {
   t.throws(() => new Roe({
     baseDir: DIR_NORMAL,
-    plugins: {
-      bog: {
-        enable: true,
-        package: 'egg-bog'
-      }
-    },
     config: {
+      plugins: {
+        bog: {
+          enable: true,
+          package: 'egg-bog'
+        }
+      },
       bog: {
         client: {},
         clients: {}

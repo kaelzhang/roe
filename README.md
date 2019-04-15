@@ -66,7 +66,9 @@ require('http')
 - **options** `Object`
   - **config** `Object | Function(appInfo)` similar as `config/config.default.js` of egg
   - **extends** `Object` which will be `Object.assign()` into the instance before loaders are invoked.
-  - **...others** `Object` other options of [`EggCore`](https://npmjs.org/package/egg-core)
+  - **...others** `Object` other options of [`EggCore`](https://npmjs.org/package/egg-core) except `options.plugins`
+
+  - ~~**plugins**~~ since 2.0.0, `plugins` should be defined in `options.config`
 
 Creates a roe instance.
 

@@ -52,7 +52,6 @@ class Roe extends EggCore {
     this.loader = new Loader({
       baseDir: options.baseDir,
       app: this,
-      plugins: options.plugins,
       logger: this.console,
       serverScope: options.serverScope,
       env: options.env,

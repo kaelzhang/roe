@@ -21,6 +21,23 @@ const GET_CONFIG = t => {
   const logs = []
 
   const config = {
+    plugins: {
+      bog: {
+        enable: true,
+        package: 'egg-bog'
+      },
+
+      redis: {
+        enable: true,
+        package: 'egg-redis'
+      },
+
+      snowflake: {
+        enable: true,
+        package: 'egg-snowflake'
+      }
+    },
+
     bog: {
       client: {
         on: {
@@ -64,23 +81,6 @@ const GET_CONFIG = t => {
       a: 1
     },
 
-    plugins: {
-      bog: {
-        enable: true,
-        package: 'egg-bog'
-      },
-
-      redis: {
-        enable: true,
-        package: 'egg-redis'
-      },
-
-      snowflake: {
-        enable: true,
-        package: 'egg-snowflake'
-      }
-    },
-
     extra: logs,
 
     config: process.env.FUNC_CONFIG
@@ -104,7 +104,6 @@ const runner = (baseDir, cases = CASES, getConfig = GET_CONFIG, after = AFTER) =
 
   test.before(async t => {
     const {
-      plugins,
       extends: exts,
       config,
       extra: e
@@ -114,7 +113,6 @@ const runner = (baseDir, cases = CASES, getConfig = GET_CONFIG, after = AFTER) =
 
     app = new Roe({
       baseDir: path.join(__dirname, baseDir),
-      plugins,
       extends: exts,
       config
     })

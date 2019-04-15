@@ -5,9 +5,19 @@ const {isFunction} = require('core-util-is')
 module.exports = class AppWorkerLoader extends EggLoader {
   constructor (options) {
     super(options)
+
     this._customConfig = isFunction(options.config)
       ? options.config.call(null, this.getAppInfo())
       : options.config
+
+    if (!this._customConfig) {
+      return
+    }
+
+    const {plugins} = this._customConfig
+    if (plugins) {
+      this.options.plugins = plugins
+    }
   }
 
   loadConfig () {
