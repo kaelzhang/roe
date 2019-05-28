@@ -1,6 +1,6 @@
 {
   "name": "roe",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A single and simplified instance of Egg web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes",
   "main": "src/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/kaelzhang/roe-core.git"
+    "url": "git://github.com/kaelzhang/roe.git"
   },
   "keywords": [
     "roe",
@@ -39,7 +39,7 @@
   "author": "kaelzhang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaelzhang/roe-core/issues"
+    "url": "https://github.com/kaelzhang/roe/issues"
   },
   "devDependencies": {
     "ava": "^1.4.0",

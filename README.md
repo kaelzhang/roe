@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/kaelzhang/roe-core.svg?branch=master)](https://travis-ci.org/kaelzhang/roe-core)
-[![Coverage](https://codecov.io/gh/kaelzhang/roe-core/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/roe-core)
+[![Build Status](https://travis-ci.org/kaelzhang/roe.svg?branch=master)](https://travis-ci.org/kaelzhang/roe)
+[![Coverage](https://codecov.io/gh/kaelzhang/roe/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/roe)
 <!-- optional appveyor tst
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/kaelzhang/roe-core?branch=master&svg=true)](https://ci.appveyor.com/project/kaelzhang/roe-core)
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/kaelzhang/roe?branch=master&svg=true)](https://ci.appveyor.com/project/kaelzhang/roe)
 -->
 <!-- optional npm version
 [![NPM version](https://badge.fury.io/js/roe.svg)](http://badge.fury.io/js/roe)
@@ -10,10 +10,10 @@
 [![npm module downloads per month](http://img.shields.io/npm/dm/roe.svg)](https://www.npmjs.org/package/roe)
 -->
 <!-- optional dependency status
-[![Dependency Status](https://david-dm.org/kaelzhang/roe-core.svg)](https://david-dm.org/kaelzhang/roe-core)
+[![Dependency Status](https://david-dm.org/kaelzhang/roe.svg)](https://david-dm.org/kaelzhang/roe)
 -->
 
-# roe (-core)
+# roe
 
 A single and simplified instance of [Egg](https://eggjs.org/) web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes.
 
