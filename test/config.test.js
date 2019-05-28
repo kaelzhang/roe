@@ -35,3 +35,21 @@ test('no-plugin: normal request', async t => {
 
   t.is(text, 'hello')
 })
+
+test('loadRouter: false', async t => {
+  const app = new Roe({
+    baseDir: fixture('no-config'),
+    config: {
+      loadRouter: false
+    }
+  })
+
+  await app.ready()
+
+  const {
+    statusCode
+  } = await request(app.callback())
+  .get('/hello')
+
+  t.is(statusCode, 404)
+})

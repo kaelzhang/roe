@@ -1,11 +1,11 @@
 {
   "name": "roe",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A single and simplified instance of Egg web framework without clusters and agents, which is more suitable for container-based deployment, such as Docker and Kubernetes",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc ava --timeout=10s --verbose test/*.test.js",
-    "test-no-report": "NODE_DEBUG=roe nyc ava --timeout=10s --verbose test/*.test.js",
+    "test": "nyc ava --timeout=10s --verbose",
+    "test:dev": "NODE_DEBUG=roe nyc ava --timeout=10s --verbose",
     "lint": "eslint .",
     "posttest": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
@@ -31,7 +31,10 @@
     "node": ">= 6"
   },
   "ava": {
-    "babel": false
+    "babel": false,
+    "files": [
+      "test/*.test.js"
+    ]
   },
   "author": "kaelzhang",
   "license": "MIT",

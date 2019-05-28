@@ -2,6 +2,30 @@ const {EggLoader} = require('egg-core')
 const extend = require('extend2')
 const {isFunction} = require('core-util-is')
 
+const ITEMS_TO_LOAD = [
+  // app > plugin > core
+  'loadApplicationExtend',
+  'loadRequestExtend',
+  'loadResponseExtend',
+  'loadContextExtend',
+  'loadHelperExtend',
+
+  // app > plugin
+  'loadCustomApp',
+
+  // app > plugin
+  'loadService',
+
+  // app > plugin > core
+  'loadMiddleware',
+
+  // app
+  'loadController',
+
+  // app
+  'loadRouter'
+]
+
 module.exports = class AppWorkerLoader extends EggLoader {
   constructor (options) {
     super(options)
@@ -37,22 +61,12 @@ module.exports = class AppWorkerLoader extends EggLoader {
   }
 
   load () {
-    // app > plugin > core
-    this.loadApplicationExtend()
-    this.loadRequestExtend()
-    this.loadResponseExtend()
-    this.loadContextExtend()
-    this.loadHelperExtend()
+    const {config} = this
 
-    // app > plugin
-    this.loadCustomApp()
-    // app > plugin
-    this.loadService()
-    // app > plugin > core
-    this.loadMiddleware()
-    // app
-    this.loadController()
-    // app
-    this.loadRouter() // depend on controller
+    for (const type of ITEMS_TO_LOAD) {
+      if (config[type] !== false) {
+        this[type]()
+      }
+    }
   }
 }
